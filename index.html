@@ -1,162 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shahir Hassoun - Technology Portfolio</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif; 
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #1c1c1c;
-            padding: 20px;
-            text-align: center; 
-        }
-        header h1 {
-            color: #00ff00; 
-            font-size: 3rem;
-            margin: 0;
-        } 
-        section {
-            padding: 20px;
-            margin: 10px; 
-            border-top: 2px solid #00ff00; /* Add a green line separating sections */
-        }
-        h2 { 
-            color: #00ff00;
-            font-size: 2rem; 
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;  
-        }
-        li {
-            padding: 10px;
-            font-size: 1.1rem;
-        } 
-        footer {
-            background-color: #1c1c1c;  
-            padding: 10px;
-            text-align: center;
-            font-size: 0.9rem; 
-        }
-        .projects ul {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .projects li {
-            background-color: #333;
-            border: 1px solid #444;
-            padding: 10px;
-            font-size: 1rem;
-        }
-        /* Additional styles to create space between paragraphs */
-        .gap {
-            margin-bottom: 20px; 
-        }
-    </style>
-</head> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Shahir Hassoun — Technology Portfolio</title>
+  <meta name="description" content="Portfolio of Shahir Hassoun — Systems Administration, Security Engineering, and DevOps projects." />
+
+  <!-- Typeface: highly readable system stack -->
+  <style>
+    :root{
+      --bg: #0b0c10;          /* background */
+      --panel: #111217;       /* cards/nav */
+      --muted: #aab0c0;       /* secondary text */
+      --text: #e8ecf3;        /* main text */
+      --accent: #67f7a7;      /* cyber green */
+      --accent-2:#42d4f5;     /* cyan pop for subtle elements */
+      --border:#202432;       /* soft borders */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --space: 16px;
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; line-height:1.6; background:var(--bg); color:var(--text);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    /* Layout */
+    .container{max-width:var(--maxw); margin:0 auto; padding: 0 20px}
+    header.site-header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px); background:rgba(11,12,16,.7); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand .dot{width:12px; height:12px; background:var(--accent); border-radius:50%; box-shadow:0 0 18px var(--accent)}
+    .brand h1{font-size:1rem; margin:0; letter-spacing:.4px; font-weight:700}
+    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px; border:1px solid transparent}
+    nav a:hover, nav a:focus{color:var(--text); border-color:var(--border); outline:none}
+
+    /* Hero */
+    .hero{padding:48px 0 16px}
+    .hero-card{background:linear-gradient(180deg, rgba(17,18,23,.9), rgba(17,18,23,.7)); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px}
+    .title{font-size:clamp(1.4rem, 2.6vw, 2rem); margin:0 0 8px}
+    .subtitle{margin:0; color:var(--muted)}
+    .chips{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px}
+    .chip{font-size:.85rem; color:#0a0f12; background:var(--accent); border-radius:999px; padding:6px 10px; font-weight:700}
+
+    /* Sections */
+    section{scroll-margin-top:80px; padding:26px 0; border-top:1px solid var(--border)}
+    section:first-of-type{border-top:none}
+    h2{color:var(--accent); font-size:clamp(1.1rem, 2.4vw, 1.5rem); margin:0 0 14px}
+    p{margin:0 0 12px}
+
+    /* Cards & grids */
+    .grid{display:grid; gap:16px}
+    .cols-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
+
+    .card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+    .card h3{margin:0 0 8px; font-size:1.05rem}
+    .meta{color:var(--muted); font-size:.92rem}
+
+    /* Lists */
+    ul.clean{margin:8px 0 0; padding:0; list-style:none}
+    ul.clean li{padding-left:22px; position:relative; margin:6px 0}
+    ul.clean li::before{content:""; position:absolute; left:0; top:.65em; width:8px; height:8px; border-radius:2px; background:var(--accent)}
+
+    /* Details (expanders) */
+    details{border:1px solid var(--border); border-radius:12px; padding:10px 12px; background:#0f1117}
+    details summary{cursor:pointer; list-style:none}
+    details summary::-webkit-details-marker{display:none}
+    details[open]{outline:1px solid rgba(103,247,167,.2)}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border); padding:30px 0 50px; color:var(--muted)}
+    .small{font-size:.95rem}
+
+    /* Accessibility helpers */
+    a.skip{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+    a.skip:focus{position:static; width:auto; height:auto; padding:8px; background:#222; border-radius:8px}
+  </style>
+</head>
 <body>
+  <a href="#main" class="skip">Skip to content</a>
 
-<header>
-    <h1>Shahir Hassoun - Information Technology Portfolio</h1>
-</header>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <h1>Shahir Hassoun — Technology Portfolio</h1>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<section>
-    <h2>About Me</h2> 
-    <p class="gap">
-        I'm an IT professional and a passionate cybersecurity enthusiast, dedicated to expanding my knowledge across all areas of technology. I began my IT career in 2018, majoring in computer networking at Wentworth Institute of Technology, where I discovered my love for information security.
-    </p>
-    <p class="gap">
-        In 2021, while vacationing in Khartoum, Sudan, I gained hands-on experience volunteering in an organization where my uncle was working as a network engineer. Although the organization’s security setup was minimal, I proactively sought ways to enhance it. I conducted extensive research on Governance, Risk, and Compliance (GRC)—a field I find particularly compelling—and leveraged my strength in documentation to implement improvements. I reviewed and adapted relevant frameworks and guidelines to address critical security gaps, ultimately contributing to a stronger security posture for the organization.
-    </p> 
-</section>
-    
-<section>    
-    <h2>Work Experience</h2> 
-    <p class="gap">
-        After my time in Sudan, I worked for Allied Universal, a security compnay that was contracted with Takeda Pharmaceutical Company in Cambridge, Massachusetts, as a serivce desk and SOC Analyst (though not in cybersecurity, but in physical security). In this role, I:
-    </p>
-    <ul class="gap">
-        <li>Monitored surveillance systems and alarms: Detected unauthorized access and potential security risks, contributing to physical security compliance.</li> 
-        <li>Managed access control systems: Assigned permissions based on defined roles to minimize security vulnerabilities and ensure alignment with access control policies.</li>
-        <li>Investigated alarm activations: Coordinated with security teams to address and mitigate security threats, maintaining compliance with safety protocols.</li>
-    </ul>
+  <main id="main" class="container">
+    <!-- HERO -->
+    <section class="hero" id="about">
+      <div class="hero-card">
+        <h2 class="title">Systems Administration • Security Engineering • DevOps</h2>
+        <p class="subtitle">
+          I'm an IT professional and cybersecurity enthusiast with hands‑on experience across Windows/Linux administration,
+          enterprise networking, and security operations. I love designing production‑like labs, integrating real instruments and systems, and documenting everything clearly.
+        </p>
+        <div class="chips" aria-label="Focus areas">
+          <span class="chip">AD / Windows Server</span>
+          <span class="chip">Linux (Ubuntu/Rocky)</span>
+          <span class="chip">pfSense & VLANs</span>
+          <span class="chip">SIEM (Splunk/Wazuh)</span>
+          <span class="chip">IDS (Snort/Suricata)</span>
+          <span class="chip">Cloud & Kubernetes</span>
+        </div>
+      </div>
+    </section>
 
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="grid cols-2">
+        <article class="card" aria-labelledby="sanofi-title">
+          <h3 id="sanofi-title">Lab IoT Integration Specialist — <span class="meta">Sanofi · Waltham, MA · Jan 2025 – Present (Contract)</span></h3>
+          <ul class="clean">
+            <li>Integrated laboratory instruments into Sanofi’s cloud application; aligned integrations with scientific workflows.</li>
+            <li>Created secure SMB network shares for instruments and end‑users; implemented access controls and documentation.</li>
+            <li>Worked with security/network teams to onboard IoT lab devices via firewall rules and segmentation.</li>
+            <li>Automated backups and data transfers to reduce data‑loss risk and improve reliability.</li>
+            <li>Authored detailed runbooks covering integration workflows, network setup, and instrument specifics.</li>
+            <li>Installed/standardized Symantec EDR and SCCM as part of endpoint/server deployments.</li>
+          </ul>
+        </article>
 
-    <p class="gap">
-        Although I gained valuable skills, especially in customer service, from my role in physical security, I was eager to transition into IT. I began applying primarily for help desk roles to gain hands-on IT experience. Fortunately, I was hired as an IT Analyst by Dav El Boston Coach in Everett, Massachusetts. In this role, I gained a broad range of technical skills, supporting various IT functions, including desktop support, system administration, and security improvements. Key responsibilities and accomplishments included:
-    </p>
-   
+        <article class="card" aria-labelledby="davel-title">
+          <h3 id="davel-title">IT Specialist / Systems Administrator — <span class="meta">DavEl Boston Coach · Everett, MA · Feb 2023 – Apr 2024</span></h3>
+          <ul class="clean">
+            <li>Managed Active Directory users, permissions, GPOs, host security, and file permissions — enforcing least privilege.</li>
+            <li>Collaborated with senior sysadmins on enterprise infrastructure while supporting 250+ on‑prem/remote users.</li>
+            <li>Created and managed servers using VMware ESXi and vCenter; performed routine maintenance.</li>
+            <li>Executed patching, updates, and backups to harden systems and protect availability & data integrity.</li>
+            <li>Maintained server/endpoint inventory with organized documentation and lifecycle tracking.</li>
+            <li>Administered Microsoft 365 and Exchange; handled provisioning, onboarding/offboarding.</li>
+            <li>Monitored and analyzed security alerts/logs with AlienVault SIEM & SentinelOne EDR; responded to incidents.</li>
+            <li>Deployed SentinelOne across endpoints for malware prevention and visibility.</li>
+            <li>Ran phishing simulations and user training with KnowBe4 to reduce social‑engineering risk.</li>
+            <li>Implemented MFA (Microsoft/DUO), Cisco VPN, and BitLocker encryption across devices.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-    <ul class="gap">
-        <li>Managed Active Directory user accounts, permissions, group policies, host security, file permissions, and file system integrity, ensuring adherence to the principle of least privilege.</li>
-        <li>Monitored and analyzed security alerts and logs using AlienVault SIEM and SentinelOne EDR/IDS, identifying and responding to potential security incidents, and reducing risks across the organization.</li>
-        <li>Configured and deployed SentinelOne EDR across devices to protect endpoints from malware and cyber threats, reinforcing endpoint security.</li>
-        <li>Conducted phishing security assessments using KnowBe4, educating users on security best practices, and reducing social engineering risks.</li>
-        <li>Collaborated with senior system administrators to manage and maintain the company's infrastructure while providing help desk support to over 250 users.</li> 
-        <li>Created, decommissioned, and managed Windows and Linux servers using VMware ESXi and VCenter, ensuring smooth server operations in a cloud environment.</li>
-        <li>Performed patch management and system updates, applying security fixes and ensuring systems were hardened and compliant with industry standards for data integrity and availability.</li>
-        <li>Administered Microsoft Office 365 and Exchange servers, handling user onboarding/offboarding processes, provisioning services, and managing user access to critical systems.</li>
-    </ul>
-</section>
-     
-<section class="projects">
-    <h2>Projects</h2>
-    <ul>
-        <li> 
-            <h3>Local Area Network Design and Configuration</h3>
-            <p>Designed multiple LANs using Cisco Packet Tracer, implementing VLANs for segmentation, DHCP for IP addressing, and inter-VLAN routing. Configured access control lists (ACLs) to enhance network security by managing traffic flow.</p>
-            <p>Skills: Networking · ACL · DHCP · VLAN · Troubleshooting</p>
-        </li>
-        <li>
-            <h3>Penetration Testing</h3>
-            <p>Conducted penetration testing using tools such as Nmap, Wireshark, Metasploit Framework, Burp Suite, OWASP ZAP, to simulate real-world attack scenarios in a controlled environment. Identified and exploited vulnerabilities in target systems, including misconfigured services and outdated software.</p>
-            <p>Skills: Information Security · Penetration Testing · Metasploit · Nessus · Wireshark · Nmap</p>
-        </li>
-        <li>
-            <h3>Snort/Splunk Log Analysis</h3>
-            <p>Orchestrated the forwarding and analysis of detected malicious traffic through Snort, leveraging Splunk Security Enterprise as a robust log analyzer to enhance threat intelligence and incident response capabilities.</p>
-            <p>Skills: Information Security · Log Analysis · Splunk · Snort</p>
-        </li>
-        <li>
-            <h3>Wireshark Network Analysis</h3>
-            <p>Conducted detailed analysis of suspicious network traffic utilizing Wireshark, and further scrutinized findings using VirusTotal to perform network analysis to identify potential threats and vulnerabilities.</p>
-            <p>Skills: Information Security · Wireshark</p>
-        </li>
-        <li>
-            <h3>pfSense Firewall with Snort IDS</h3>
-            <p>Configured pfSense as a network firewall and integrated Snort for real-time traffic analysis. Monitored network traffic with Snort, generating alerts for suspicious activities to improve security posture. Implemented best practices for rule management and optimized performance for effective intrusion detection.</p>
-            <p>Skills: Information Security · pfSense · Firewalls · Snort</p>
-        </li>
-        <li>
-            <h3>Creating a Windows Server with AD Accounts, DNS, DHCP, File Sharing, Permissions, and Additional Configurations</h3>
-            <p>Set up a Windows Server environment with Active Directory accounts, DNS, DHCP, file sharing, and proper permissions. Configured and managed network settings, ensuring secure and efficient communication across the network. Implemented GPOs and ensured a secure environment through regular monitoring and updates.</p>
-            <p>Skills: Windows Server, Active Directory, DNS, DHCP, Group Policy, File Sharing, Network Configuration, Security Management</p>
-        </li>
-        <li>
-            <h3>Ubuntu System Administration Server using VirtualBox for Sys Admin Tasks</h3>
-            <p>Created and managed an Ubuntu-based server using VirtualBox for various system administration tasks. Configured system services, scheduled jobs, and managed user permissions to maintain a secure and optimized server environment. Utilized shell scripting for task automation and system maintenance.</p>
-            <p>Skills: Ubuntu, VirtualBox, System Administration, Shell Scripting, Task Automation, User Management, Linux</p>
-        </li>
-        <li>
-            <h3>Setting Up a Zabbix Server for Monitoring</h3> 
-            <p>Deployed a Zabbix server for comprehensive network monitoring. Configured item checks, triggers, and alerts for various network and system resources. Set up SNMP monitoring for devices and created custom dashboards for visualizing system performance and health.</p>
-            <p>Skills: Zabbix, Network Monitoring, SNMP, System Health, Server Monitoring, Automation, Incident Detection</p>
-        </li>
-        <li>
-                <h3>Python Scripting for Security</h3>
-                <p>Developed a key logger in Python to capture keystrokes for security testing and analysis purposes, gaining insights into key logging techniques and data capture.</p>
-                <p>Created a Python-based subdomain scanner to identify hidden subdomains on target websites, aiding in vulnerability assessment and reconnaissance.</p>
-                <p>Built a multi-threaded port scanner in Python to identify open ports on target IP addresses, supporting network vulnerability assessments.</p>
-                <p>Skills: Python, Network Reconnaissance, Scanning,  </p> 
-            </li>
-            
-   
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="card">
+        <h3>Home Lab Project — Enterprise Security & Systems Engineering Environment</h3>
+        <p class="meta">Dell PowerEdge R720 · Proxmox VE · Windows & Linux · pfSense · Splunk/Wazuh · Snort/Suricata · Docker/Kubernetes · Veeam/Avamar</p>
+
+        <div class="grid cols-2">
+          <div>
+            <h4>Infrastructure & Virtualization</h4>
+            <ul class="clean">
+              <li>Proxmox VE host with nested VMs (Windows Server 2019/2022; Ubuntu, Rocky, Kali).</li>
+              <li>VLAN segmentation via Dell Force10 S50 and pfSense: LAN, DMZ, WAN, Management.</li>
+              <li>iDRAC remote management with static IPs for controlled access and uptime.</li>
+            </ul>
+
+            <h4>Core Services</h4>
+            <ul class="clean">
+              <li>AD DS, DNS, DHCP for identity and network management.</li>
+              <li>Web (Apache/NGINX), SIEM (Splunk/Wazuh), IDS/IPS (Snort/Suricata).</li>
+              <li>Containerization with Docker & Kubernetes; CI-friendly workflows.</li>
+              <li>Backup & DR with Veeam and Avamar.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Security Architecture</h4>
+            <ul class="clean">
+              <li>Firewall segmentation & ACLs in pfSense/VyOS to enforce least‑privilege network flows.</li>
+              <li>DNS sinkhole & sandboxing for safe malware analysis.</li>
+              <li>Vulnerability management via Nessus/OpenVAS; integrated scanning workflows.</li>
+              <li>Endpoint protection & encryption (SentinelOne/CrowdStrike test setup, BitLocker, LUKS).</li>
+            </ul>
+
+            <h4>Monitoring, Automation & Threat Hunting</h4>
+            <ul class="clean">
+              <li>Splunk dashboards for Windows events, firewall activity, IDS alerts.</li>
+              <li>Zabbix for uptime/performance; anomaly detection.</li>
+              <li>Automation with PowerShell/Python (scheduled exports, log rotation, data collection).</li>
+              <li>Experimented with Ansible for IaC deployments.</li>
+              <li>Azure honeypot VM bridged via VPN; simulated attacker behavior; practiced MDE/Nessus‑driven hunting.</li>
+            </ul>
+          </div>
+        </div>
+
+        <details>
+          <summary><strong>Key Outcomes</strong></summary>
+          <ul class="clean" style="margin-top:8px">
+            <li>Built a production‑like environment mirroring real organizational infrastructure.</li>
+            <li>End‑to‑end experience: system administration, networking, monitoring, and incident response.</li>
+            <li>Reusable documentation & scripts for automation, deployments, troubleshooting.</li>
+            <li>Deepened expertise in AD, Linux/Windows admin, SIEM/IDS, virtualization, and cloud integration.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="card">
+        <h3>🚀 Real‑Time Jenkins CI/CD Pipeline with Kubernetes</h3>
+        <p class="meta">Jenkins · GitHub · Maven · SonarQube · Docker · Docker Hub · ArgoCD · Kubernetes (EKS) · Slack</p>
+        <div class="grid cols-2">
+          <div>
+            <h4>Highlights</h4>
+            <ul class="clean">
+              <li>Automated builds & tests from GitHub via Jenkins; artifacts built with Maven.</li>
+              <li>Static analysis with SonarQube to enforce code quality gates.</li>
+              <li>Docker image build & push to Docker Hub with security scanning.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Delivery</h4>
+            <ul class="clean">
+              <li>GitOps deployments with ArgoCD; version‑controlled Kubernetes manifests.</li>
+              <li>Auto‑bumped build numbers, continuous delivery to Amazon EKS.</li>
+              <li>Slack notifications for real‑time pipeline status and visibility.</li>
+            </ul>
+          </div>
+        </div>
+        <details>
+          <summary><strong>Impact</strong></summary>
+          <ul class="clean" style="margin-top:8px">
+            <li>~80% reduction in manual deployment effort via automation.</li>
+            <li>Higher quality through integrated analysis & image scanning.</li>
+            <li>Zero‑downtime continuous delivery on Kubernetes.</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- Keep a compact list of other notable projects -->
+      <article class="card">
+        <h3>Other Notable Projects</h3>
+        <div class="grid cols-2">
+          <ul class="clean">
+            <li>Local Area Network design with VLANs, DHCP, inter‑VLAN routing, and ACLs (Cisco Packet Tracer).</li>
+            <li>Snort → Splunk pipeline for threat intel & incident response.</li>
+            <li>Wireshark network analysis with VirusTotal enrichment.</li>
+            <li>pfSense firewall with tuned Snort IDS/IPS rules.</li>
+          </ul>
+          <ul class="clean">
+            <li>Windows Server build: AD, DNS, DHCP, file services, GPO hardening.</li>
+            <li>Ubuntu sysadmin server on VirtualBox with automation via shell scripts.</li>
+            <li>Zabbix deployment with SNMP checks, triggers, and dashboards.</li>
+            <li>Python tooling: subdomain scanner, multithreaded port scanner.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="card">
+        <div class="grid cols-2">
+          <div>
+            <h4>Systems & Platforms</h4>
+            <ul class="clean">
+              <li>Windows Server (2019/2022), Active Directory, Group Policy</li>
+              <li>Linux: Ubuntu, Rocky Linux; automation with Bash/Python</li>
+              <li>Virtualization: Proxmox VE, VMware ESXi/vCenter</li>
+            </ul>
+            <h4>Networking & Security</h4>
+            <ul class="clean">
+              <li>pfSense, VLANs, ACLs, VPN (Cisco), firewall segmentation</li>
+              <li>SIEM: Splunk, Wazuh · IDS/IPS: Snort, Suricata</li>
+              <li>Endpoint: SentinelOne, Symantec · Encryption: BitLocker, LUKS</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Cloud & DevOps</h4>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Shahir Hassoun — Technology Portfolio</title>
+  <meta name="description" content="Portfolio of Shahir Hassoun — Systems Administration, Security Engineering, and DevOps projects." />
+
+  <!-- Typeface: highly readable system stack -->
+  <style>
+    :root{
+      --bg: #0b0c10;          /* background */
+      --panel: #111217;       /* cards/nav */
+      --muted: #aab0c0;       /* secondary text */
+      --text: #e8ecf3;        /* main text */
+      --accent: #67f7a7;      /* cyber green */
+      --accent-2:#42d4f5;     /* cyan pop for subtle elements */
+      --border:#202432;       /* soft borders */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --space: 16px;
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; line-height:1.6; background:var(--bg); color:var(--text);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    /* Layout */
+    .container{max-width:var(--maxw); margin:0 auto; padding: 0 20px}
+    header.site-header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px); background:rgba(11,12,16,.7); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand .dot{width:12px; height:12px; background:var(--accent); border-radius:50%; box-shadow:0 0 18px var(--accent)}
+    .brand h1{font-size:1rem; margin:0; letter-spacing:.4px; font-weight:700}
+    nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:10px; border:1px solid transparent}
+    nav a:hover, nav a:focus{color:var(--text); border-color:var(--border); outline:none}
+
+    /* Hero */
+    .hero{padding:48px 0 16px}
+    .hero-card{background:linear-gradient(180deg, rgba(17,18,23,.9), rgba(17,18,23,.7)); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px}
+    .title{font-size:clamp(1.4rem, 2.6vw, 2rem); margin:0 0 8px}
+    .subtitle{margin:0; color:var(--muted)}
+    .chips{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px}
+    .chip{font-size:.85rem; color:#0a0f12; background:var(--accent); border-radius:999px; padding:6px 10px; font-weight:700}
+
+    /* Sections */
+    section{scroll-margin-top:80px; padding:26px 0; border-top:1px solid var(--border)}
+    section:first-of-type{border-top:none}
+    h2{color:var(--accent); font-size:clamp(1.1rem, 2.4vw, 1.5rem); margin:0 0 14px}
+    p{margin:0 0 12px}
+
+    /* Cards & grids */
+    .grid{display:grid; gap:16px}
+    .cols-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
+
+    .card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+    .card h3{margin:0 0 8px; font-size:1.05rem}
+    .meta{color:var(--muted); font-size:.92rem}
+
+    /* Lists */
+    ul.clean{margin:8px 0 0; padding:0; list-style:none}
+    ul.clean li{padding-left:22px; position:relative; margin:6px 0}
+    ul.clean li::before{content:""; position:absolute; left:0; top:.65em; width:8px; height:8px; border-radius:2px; background:var(--accent)}
+
+    /* Details (expanders) */
+    details{border:1px solid var(--border); border-radius:12px; padding:10px 12px; background:#0f1117}
+    details summary{cursor:pointer; list-style:none}
+    details summary::-webkit-details-marker{display:none}
+    details[open]{outline:1px solid rgba(103,247,167,.2)}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border); padding:30px 0 50px; color:var(--muted)}
